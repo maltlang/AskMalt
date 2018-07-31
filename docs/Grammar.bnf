@@ -1,0 +1,6 @@
+
+s-exp ::= 
+
+defun ::= '(' 'def' Name '(' Name-list ')'  ')'
+
+Name := String
