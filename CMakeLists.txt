@@ -9,7 +9,7 @@ project ("AskMalt")
 
 include_directories(include/)
 
-set(SrcPath src/main.cpp include/Value.h include/Predefined.h include/Function.h src/Object/Function.cpp src/Object/Mark.cpp include/Parser/AST.h include/Parser/Parser.h src/Parser/AST.cpp src/Parser/Parser.cpp)
+set(SrcPath src/main.cpp include/Value.h include/Predefined.h include/Function.h src/Object/Function.cpp src/Object/Mark.cpp include/Parser/AST.h include/Parser/Lexer.h src/Parser/AST.cpp src/Parser/Lexer.cpp)
 
 set(ExecName amalt)
 
