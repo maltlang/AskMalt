@@ -1,13 +1,18 @@
-#include "Value.h"
-using namespace amalt;
-#include <variant>
+#include <iostream>
+#include "./Parser/Parser.h"
 
-#include "./Parser/AST.h"
+using namespace std;
+using namespace amalt;
 
 int main(int argc, char **argv) {
-	auto m = Value(BOOLT, false);
-	std::variant<int, float> w, v;
-	v = 12;
-	w = v;
+	String src;
+	for (;;) {
+		wcin >> src;
+		auto ts = Lexer(src);
+		for (auto &i : ts) {
+			wcout << i.toString();
+		}
+	}
+	//for (;;)
 	return 0;
 }

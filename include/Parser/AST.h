@@ -7,27 +7,37 @@
 
 namespace amalt {
 	class Token {
+	public:
 		enum Type {
 			LP = '(',
 			RP = ')',
 			LMP = '[',
 			RMP = ']',
-			QUO = '&',
+			QUO = '\'',
 
 			NUM = 'N',
 			STR = 'S',
 			SYM = 's',
 		};
-		std::string exvalue;
+		int tp;
+		std::wstring exvalue;
+		size_t line, pos;
 
-		Token(Type t, std::string v);
+		Token(int t, std::wstring v, size_t line, size_t pos);
+
+		bool operator==(const Token &);
+		bool operator!=(const Token &);
+
+		std::wstring toString() const;
 	};
 
 	class AST {
 	public:
-		// 可能还会拓展
 		enum Type {
+			OBJ,
+			IF_,
 			COND,
+			MATCH,
 			QUOTE,
 			FCALL,
 			DEFUN,
@@ -43,11 +53,10 @@ namespace amalt {
 
 	class FCallAST : public AST {
 	public:
-		String fname;
 		std::vector<AST> args;
 
-		FCallAST(String n, const ui64 l, const ui64 p, std::vector<AST> a):
-			AST(FCALL, l, p), fname(std::move(n)), args(std::move(a)) {}
+		FCallAST(const ui64 l, const ui64 p, std::vector<AST> a):
+			AST(FCALL, l, p), args(std::move(a)) {}
 	};
 
 	class DefunAST : public AST {

@@ -11,7 +11,7 @@ namespace amalt {
 	}
 
 	NativeInterface::
-		NativeInterface(std::string n = "<Unknown>", NativeFunction fp = nullptr):
+		NativeInterface(std::string n = "<Unknown>", std::function<Value(Mark<Tuple>)> fp = nullptr):
 		Function(n), f(fp) {}
 
 	Value NativeInterface::fcall(Mark<Tuple> args)

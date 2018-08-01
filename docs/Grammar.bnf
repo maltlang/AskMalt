@@ -1,6 +1,51 @@
+# The AskMalt Programming Language Grammar
 
-s-exp ::= 
+Expr
+	::=	Number
+	|   Symbol
+	|	String
+	|	Quote
+	|	Tuple
+	|	Let
+	|	If
+	|	Cond
+	|	Match
+	|	Defun
+	|	Lambda
+	|	FCall
+	;
 
-defun ::= '(' 'def' Name '(' Name-list ')'  ')'
+Let ::= '(' "let" Symbol Expr ')' ;
 
-Name := String
+If
+	::= '(' "if" Expr Expr ')'
+	|   '(' "if" Expr Expr Expr ')'
+	;
+
+Cond ::= '(' "cond" ('[' Expr Expr ']')+ ')' ;
+
+Match ::= '(' "match" Expr ('[' Expr Expr ']')+ ')' ;
+
+Defun ::= '(' "def" Symbol '(' (Name)+ ')' (Expr)+ ')' ;
+
+Lambda ::= '(' "lambda" '(' (Name)+ ')' (Expr)+ ')' ;
+
+FCall ::= '(' (Expr)+ ')' ;
+
+Quote
+	::= '\''Expr
+	|   '(' "quote" (Expr)+ ')'
+	;
+
+Tuple ::= '[' (Expr)+ ']' ;
+
+Symbol := r"[^\0.]" ;
+
+String := r"\"(.)+(\n)+(.)*(\n)+\"" ;
+
+Number := r"/b+" ;
+
+#True := "true"
+#False := "false"
+
+#Nil := "nil"

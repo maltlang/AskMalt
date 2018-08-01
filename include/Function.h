@@ -24,13 +24,14 @@ namespace amalt {
 		virtual Value fcall(Mark<Tuple>);
 	};
 
-	typedef std::function<Value(Mark<Tuple>)> NativeFunction;
+	//typedef std::function<Value(Mark<Tuple>)> NativeFunction;
 
 	class NativeInterface : Function {
 	public:
-		NativeFunction f;
+		//NativeFunction f;
+		std::function<Value(Mark<Tuple>)> f;
 
-		NativeInterface(std::string n, NativeFunction f);
+		NativeInterface(std::string n, std::function<Value(Mark<Tuple>)> f);
 		virtual Value fcall(Mark<Tuple>);
 	};
 }
