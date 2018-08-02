@@ -9,6 +9,13 @@ namespace amalt {
 		size_t line = 1, pos = 0;
 		for (size_t index = 0; index < slen; index++) {
 			switch (src[index]) {
+			case '#':
+				// 如果这里抛出字符串越界访问，就表明lexer失败了，告辞。直接抛出Runtime/LanguageException就行了
+				for (index++; src[index] != '\n'; index++);
+				index++;
+				line++;
+				pos = 0;	
+				break;
 			case '"':
 				if (buffer.length() != 0) {
 					ts.push_back(Token(Token::SYM, buffer, line, pos));

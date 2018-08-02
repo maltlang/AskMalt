@@ -26,9 +26,9 @@ Cond ::= '(' "cond" ('[' Expr Expr ']')+ ')' ;
 
 Match ::= '(' "match" Expr ('[' Expr Expr ']')+ ')' ;
 
-Defun ::= '(' "def" Symbol '(' (Name)+ ')' (Expr)+ ')' ;
+Defun ::= '(' "fun" Symbol '(' (Name)+ ')' (Expr)+ ')' ;
 
-Lambda ::= '(' "lambda" '(' (Name)+ ')' (Expr)+ ')' ;
+Lambda ::= '(' '\' '(' (Name)+ ')' (Expr)+ ')' ;
 
 FCall ::= '(' (Expr)+ ')' ;
 
