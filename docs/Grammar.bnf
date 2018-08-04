@@ -1,11 +1,15 @@
 # The AskMalt Programming Language Grammar
 
 Expr
-	::=	Number
-	|   Symbol
+	::= Number
 	|	String
-	|	Quote
+	|	Symbol
 	|	Tuple
+	|	'(' RExpr ')'
+	|	RExpr
+
+RExpr
+	::=	Quote
 	|	Let
 	|	If
 	|	Cond
@@ -15,26 +19,26 @@ Expr
 	|	FCall
 	;
 
-Let ::= '(' "let" Symbol Expr ')' ;
+Let ::= "let" Symbol Expr ;
 
 If
-	::= '(' "if" Expr Expr ')'
-	|   '(' "if" Expr Expr Expr ')'
+	::= "if" Expr Expr
+	|   "if" Expr Expr Expr
 	;
 
-Cond ::= '(' "cond" ('[' Expr Expr ']')+ ')' ;
+Cond ::= "cond" ('[' Expr Expr ']')+ ;
 
-Match ::= '(' "match" Expr ('[' Expr Expr ']')+ ')' ;
+Match ::= "match" Expr ('[' Expr Expr ']')+ ;
 
-Defun ::= '(' "fun" Symbol '(' (Name)+ ')' (Expr)+ ')' ;
+Defun ::= "fun" Symbol '(' (Name)+ ')' (Expr)+ ;
 
-Lambda ::= '(' '\' '(' (Name)+ ')' (Expr)+ ')' ;
+Lambda ::= '\\' '(' (Name)+ ')' (Expr)+ ;
 
-FCall ::= '(' (Expr)+ ')' ;
+FCall ::= (Expr)+ ;
 
 Quote
-	::= '\''Expr
-	|   '(' "quote" (Expr)+ ')'
+	::= '\'' Expr
+	|   "quote" (Expr)+ 
 	;
 
 Tuple ::= '[' (Expr)+ ']' ;

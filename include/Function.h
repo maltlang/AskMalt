@@ -3,9 +3,12 @@
 
 #include <functional>
 #include "Objects.h"
+#include "Mark.h"
 //#include "Function.h"
 
 namespace amalt {
+	class Value;
+
 	class Function {
 	public:
 		std::string name;
@@ -21,17 +24,16 @@ namespace amalt {
 		std::weak_ptr<Module> mod;
 
 		RTFunction(std::string n);	//TODO:env
-		virtual Value fcall(Mark<Tuple>);
+		Value fcall(Mark<Tuple>) override;
 	};
 
-	//typedef std::function<Value(Mark<Tuple>)> NativeFunction;
+	using NativeFunction = std::function<Value(Mark<Tuple>)>;
 
 	class NativeInterface : Function {
 	public:
-		//NativeFunction f;
-		std::function<Value(Mark<Tuple>)> f;
+		NativeFunction f;
 
-		NativeInterface(std::string n, std::function<Value(Mark<Tuple>)> f);
-		virtual Value fcall(Mark<Tuple>);
+		NativeInterface(std::string n, NativeFunction f);
+		Value fcall(Mark<Tuple>) override;
 	};
 }

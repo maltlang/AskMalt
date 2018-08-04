@@ -4,10 +4,11 @@
 #include <memory>
 #include "Predefined.h"
 #include "Mark.h"
-//#include "Objects.h"
-//#include "Function.h"
+#include "Objects.h"
+#include "Function.h"
 
 namespace amalt {
+	/*
 	class String;
 	class Tuple;
 	class Dict;
@@ -16,6 +17,7 @@ namespace amalt {
 	class RTFunction;
 	class NativeFunction;
 	class UserDatas;
+	*/
 
 	typedef std::variant<
 		// atom

@@ -4,13 +4,18 @@
 #include <string>
 #include <unordered_map>
 #include "Predefined.h"
-#include "Value.h"
+#include "Mark.h"
 
 namespace amalt {
 
-	class String : public std::wstring {};
-	class Tuple : public std::vector<Value> {};
-	class Dict : public std::unordered_map<String, Value> {};
+	class Value;
+
+	using String = std::wstring;
+	using Tuple = std::vector<Value>;
+	using Dict = std::unordered_map<String, Value>;
+	//class String : public std::wstring {};
+	//class Tuple : public std::vector<Value> {};
+	//class Dict : public std::unordered_map<String, Value> {};
 
 	class List {
 	public:

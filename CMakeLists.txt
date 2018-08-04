@@ -13,7 +13,7 @@ set(SrcPath src/main.cpp include/Value.h include/Predefined.h include/Function.h
 
 set(ExecName amalt)
 
-add_library(lib${ExecName} ${SrcPath})
+#add_library(lib${ExecName} ${SrcPath})
 
 add_executable(${ExecName} ${SrcPath})
 

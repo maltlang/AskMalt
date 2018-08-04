@@ -61,6 +61,7 @@ namespace amalt {
 				pos = 0;
 			case '\0':
 			case '\t':
+			case ' ':
 			case EOF:
 				if (buffer.length() != 0) {
 					ts.push_back(Token(Token::SYM, buffer, line, pos));

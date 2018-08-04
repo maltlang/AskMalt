@@ -1,4 +1,5 @@
 #include "Objects.h"
+#include "Value.h"
 
 namespace amalt {
 	List::List(Mark<Value> a, Mark<Value> d) :
