@@ -15,32 +15,39 @@ namespace amalt {
 			RMP = ']',
 			QUO = '\'',
 
-			NUM = 'N',
+			//NUM = 'N',
+			FLOAT = 'f',
+			UINT = 'U',
+			INT = 'I',
 			STR = 'S',
 			SYM = 's',
 		};
-		int tp;
+		Type tp;
 		std::wstring exvalue;
 		size_t line, pos;
 
-		Token(int t, std::wstring v, size_t line, size_t pos);
+		Token(Type t, std::wstring v, size_t line, size_t pos);
 
-		bool operator==(const Token &);
-		bool operator!=(const Token &);
+		bool typeEq(const Token &) const;
+		bool operator==(const Token &) const;
+		bool operator!=(const Token &) const;
 
 		std::wstring toString() const;
 	};
 
+
 	class AST {
 	public:
 		enum Type {
-			OBJ,
+			//OBJ,
+			LET,
 			IF_,
 			COND,
 			MATCH,
+			DEFUN,
 			QUOTE,
 			FCALL,
-			DEFUN,
+			LAMBDA,
 		} type;
 
 		const ui64 line, pos;

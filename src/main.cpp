@@ -4,6 +4,8 @@
 using namespace std;
 using namespace amalt;
 
+String copys(L"Please use Ctrl-c to quit repl.");
+
 int main(int argc, char **argv) {
 	String src;
 	for (;;) {

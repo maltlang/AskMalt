@@ -19,22 +19,27 @@ namespace amalt {
 	class UserDatas;
 	*/
 
-	typedef std::variant<
+	using RValue = std::variant<
 		// atom
 		bool,
-		//char,
+		//wchar_t,	// 只有娘炮才用wchar_t，真男人只用wString
 		ui64, i64, f64,
 		// ref object
-		Mark<String>,
-		Mark<Tuple>,
-		Mark<List>,
-		Mark<Dict>,
+		//Mark<String>,
+		//Mark<Tuple>,
+		//Mark<List>,
+		//Mark<Dict>,
 		// function
-		Mark<RTFunction>,
-		std::shared_ptr<NativeFunction>,
+		//Mark<RTFunction>,
+		std::shared_ptr<String>,
+		std::shared_ptr<Tuple>,
+		std::shared_ptr<List>,
+		std::shared_ptr<Dict>,
+		std::shared_ptr<RTFunction>,
+		std::shared_ptr<NativeInterface>,
 		// userdata
 		std::shared_ptr<UserDatas>
-	> RValue;
+	>;
 
 	enum Type {
 		NIL,
@@ -49,6 +54,7 @@ namespace amalt {
 		TUPLET,
 		LISTT,
 		DICTT,
+		OBJECTT,
 
 		USERDATA,
 
@@ -61,7 +67,7 @@ namespace amalt {
 		Type tp;
 		RValue val;
 
-		Value(Type t, RValue v) : tp(t), val(v) {}
+		Value(Type t, RValue v) : tp(t), val(std::move(v)) {}
 		Value(Value &) = default;
 	};
 }

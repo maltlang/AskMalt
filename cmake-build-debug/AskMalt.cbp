@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="AskMalt"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/enter/source/repos/AskMalt/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="amalt">
+				<Option output="C:/Users/enter/source/repos/AskMalt/cmake-build-debug/amalt.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/enter/source/repos/AskMalt/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/enter/source/repos/AskMalt/include"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/mingw32"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 amalt"/>
+					<CompileFile command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="amalt/fast">
+				<Option output="C:/Users/enter/source/repos/AskMalt/cmake-build-debug/amalt.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/enter/source/repos/AskMalt/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/enter/source/repos/AskMalt/include"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/mingw32"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
+					<Add directory="e:\mingw\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 amalt/fast"/>
+					<CompileFile command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/enter/source/repos/AskMalt/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/enter/source/repos/AskMalt/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="E:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/enter/source/repos/AskMalt/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/include/Function.h">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/include/Parser/AST.h">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/include/Parser/Lexer.h">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/include/Predefined.h">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/include/Value.h">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/src/Object/Function.cpp">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/src/Object/Mark.cpp">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/src/Parser/AST.cpp">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/src/Parser/Lexer.cpp">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/src/main.cpp">
+			<Option target="amalt"/>
+		</Unit>
+		<Unit filename="C:/Users/enter/source/repos/AskMalt/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -5,12 +5,12 @@ Expr
 	|	String
 	|	Symbol
 	|	Tuple
+	|	Quote
 	|	'(' RExpr ')'
-	|	RExpr
+	;
 
 RExpr
-	::=	Quote
-	|	Let
+	::=	Let
 	|	If
 	|	Cond
 	|	Match
@@ -47,9 +47,13 @@ Symbol := r"[^\0.]" ;
 
 String := r"\"(.)+(\n)+(.)*(\n)+\"" ;
 
-Number := r"/b+" ;
+//Number := r"/b+" ;
+/*
+std::wregex fr(L"-?[0-9]*(\\.)[0-9]*.");
+std::wregex ir(L"(-|\\+)[0-9]*.");
+std::wregex uir(L"[0-9]*.");
+*/
 
-#True := "true"
-#False := "false"
-
-#Nil := "nil"
+Float := r"-?[0-9]*(\.)[0-9]*."
+Int := r"(-|\+)[0-9]*."
+UInt := r"[0-9]*."

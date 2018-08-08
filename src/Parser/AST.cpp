@@ -1,14 +1,22 @@
 #include "Parser/AST.h"
 
 namespace amalt {
-	Token::Token(int t, std::wstring v, size_t l, size_t p) :
+	Token::Token(Type t, std::wstring v, size_t l, size_t p) :
 		tp(t), exvalue(std::move(v)), line(l), pos(p) {}
 
-	bool Token::operator==(const Token & o)
-	{
+	bool Token::typeEq(const Token &o) const {
 		return tp == o.tp;
 	}
-	bool Token::operator!=(const Token & o)
+
+	bool Token::operator==(const Token & o) const
+	{
+		if (typeEq(o)) {
+			return exvalue == o.exvalue;
+		} else {
+			return false;
+		}
+	}
+	bool Token::operator!=(const Token & o) const
 	{
 		return tp != o.tp;
 	}
@@ -26,17 +34,27 @@ namespace amalt {
 			s += L'>';
 			break;
 		case STR:
-			s += L"String '";
+			s += L"string '";
 			s += exvalue;
 			s += L"'>";
 			break;
-		case NUM:
-			s += L"Number '";
+		case FLOAT:
+			s += L"float '";
+			s += exvalue;
+			s += L"'>";
+			break;
+		case UINT:
+			s += L"uint '";
+			s += exvalue;
+			s += L"'>";
+			break;
+		case INT:
+			s += L"int '";
 			s += exvalue;
 			s += L"'>";
 			break;
 		case SYM:
-			s += L"Symbol '";
+			s += L"symbol '";
 			s += exvalue;
 			s += L"'>";
 			break;

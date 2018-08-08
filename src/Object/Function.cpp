@@ -13,7 +13,7 @@ namespace amalt {
 
 	NativeInterface::
 		NativeInterface(std::string n = "<Unknown>", NativeFunction fp = nullptr):
-		Function(std::move(n)), f(fp) {}
+		Function(std::move(n)), f(std::move(fp)) {}
 
 	Value NativeInterface::fcall(Mark<Tuple> args)
 	{

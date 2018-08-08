@@ -1,7 +1,25 @@
 #include <vector>
+#include <regex>
 #include "Parser/AST.h"
 
 namespace amalt {
+
+	static Token::Type Fk(const String& s) {
+		std::wregex fr(L"-?[0-9]*(\\.)[0-9]*.");
+		if (std::regex_match(s, fr)) {
+			return Token::FLOAT;
+		}
+		std::wregex ir(L"(-|\\+)[0-9]*.");
+		if (std::regex_match(s, ir)) {
+			return Token::INT;
+		}
+		std::wregex uir(L"[0-9]*.");
+		if (std::regex_match(s, uir)) {
+			return Token::UINT;
+		}
+		return Token::SYM;
+	}
+
 	std::vector<Token> Lexer(const String &src) {
 		std::vector<Token> ts;
 		const auto slen = src.length();
@@ -22,7 +40,7 @@ namespace amalt {
 				break;
 			case '"':
 				if (buffer.length() != 0) {
-					ts.push_back(Token(Token::SYM, buffer, line, pos));
+					ts.push_back(Token(Fk(buffer), buffer, line, pos));
 					buffer.clear();
 					line++;
 				}
@@ -50,11 +68,11 @@ namespace amalt {
 			case ']':
 			case '\'':
 				if (buffer.length() != 0) {
-					ts.push_back(Token(Token::SYM, buffer, line, pos));
+					ts.push_back(Token(Fk(buffer), buffer, line, pos));
 					buffer.clear();
 					pos++;
 				}
-				ts.push_back(Token((int)src[index], L"",line,pos));
+				ts.push_back(Token(static_cast<Token::Type>(src[index]), L"",line,pos));
 				break;
 			case '\n':
 				line++;
@@ -64,7 +82,7 @@ namespace amalt {
 			case ' ':
 			case EOF:
 				if (buffer.length() != 0) {
-					ts.push_back(Token(Token::SYM, buffer, line, pos));
+					ts.push_back(Token(Fk(buffer), buffer, line, pos));
 					buffer.clear();
 					pos++;
 				}
@@ -76,7 +94,7 @@ namespace amalt {
 			}
 		}
 		if (buffer.length() != 0) {
-			ts.push_back(Token(Token::SYM, buffer, line, pos));
+			ts.push_back(Token(Fk(buffer), buffer, line, pos));
 		}
 		return ts;
 	}

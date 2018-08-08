@@ -2,6 +2,7 @@
 
 
 #include <functional>
+#include <memory>
 #include "Objects.h"
 #include "Mark.h"
 //#include "Function.h"
@@ -13,7 +14,7 @@ namespace amalt {
 	public:
 		std::string name;
 
-		Function(std::string n);
+		explicit Function(std::string n);
 		virtual Value fcall(Mark<Tuple>) = 0;
 	};
 
@@ -23,7 +24,7 @@ namespace amalt {
 	public:
 		std::weak_ptr<Module> mod;
 
-		RTFunction(std::string n);	//TODO:env
+		explicit RTFunction(std::string n);	//TODO:env
 		Value fcall(Mark<Tuple>) override;
 	};
 
