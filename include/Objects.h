@@ -30,4 +30,10 @@ namespace amalt {
 		std::string type;
 		virtual ~UserDatas() = 0;
 	};
+
+	using RString = std::shared_ptr<String>;
+	using RTuple = std::shared_ptr<Tuple>;
+	using RList = std::shared_ptr<List>;
+	using RDict = std::shared_ptr<Dict>;
+	using RUserDatas = std::shared_ptr<UserDatas>;
 }

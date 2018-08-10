@@ -5,7 +5,7 @@ Expr
 	|	String
 	|	Symbol
 	|	Tuple
-	|	Quote
+	|	EQuote
 	|	'(' RExpr ')'
 	;
 
@@ -16,6 +16,7 @@ RExpr
 	|	Match
 	|	Defun
 	|	Lambda
+	|	Quote
 	|	FCall
 	;
 
@@ -36,10 +37,7 @@ Lambda ::= '\\' '(' (Name)+ ')' (Expr)+ ;
 
 FCall ::= (Expr)+ ;
 
-Quote
-	::= '\'' Expr
-	|   "quote" (Expr)+ 
-	;
+Quote ::= "quote" (Expr)+ ;
 
 Tuple ::= '[' (Expr)+ ']' ;
 

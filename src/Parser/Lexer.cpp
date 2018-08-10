@@ -1,30 +1,41 @@
 #include <vector>
 #include <regex>
-#include "Parser/AST.h"
+#include "Parser/Token.h"
 
 namespace amalt {
 
 	static Token::Type Fk(const String& s) {
-		std::wregex fr(L"-?[0-9]*(\\.)[0-9]*.");
-		if (std::regex_match(s, fr)) {
+		std::wregex nr(L"(-|\\+)?[0-9]+(\\.)[0-9]+");
+		if (std::regex_match(s, nr)) {
 			return Token::FLOAT;
 		}
-		std::wregex ir(L"(-|\\+)[0-9]*.");
+		std::wregex ir(L"(-|\\+)?[0-9]+");
 		if (std::regex_match(s, ir)) {
-			return Token::INT;
-		}
-		std::wregex uir(L"[0-9]*.");
-		if (std::regex_match(s, uir)) {
-			return Token::UINT;
+			if (s[0] == L'-' || s[0] == L'+') {
+				return Token::INT;
+			} else {
+				return Token::UINT;
+			}
 		}
 		return Token::SYM;
 	}
 
-	std::vector<Token> Lexer(const String &src) {
+	#define Uimmm					\
+		if (buffer.length() != 0) {	\
+			ts.push_back(Token(Fk(buffer), buffer, line, pos));	\
+			buffer.clear();			\
+			pos++;					\
+		}
+
+	std::vector<Token> Lexer(const String &src, const bool is_clear_index = false) {
 		std::vector<Token> ts;
 		const auto slen = src.length();
 		String buffer;
-		size_t line = 1, pos = 0;
+		static size_t line = 1, pos = 1;
+		if (is_clear_index) {
+			line = 1;
+			pos = 1;
+		}
 		for (size_t index = 0; index < slen; index++) {
 			switch (src[index]) {
 			case '#':
@@ -39,11 +50,7 @@ namespace amalt {
 				pos = 0;	
 				break;
 			case '"':
-				if (buffer.length() != 0) {
-					ts.push_back(Token(Fk(buffer), buffer, line, pos));
-					buffer.clear();
-					line++;
-				}
+				Uimmm
 				index++;
 				for (size_t o = index;; index++) {
 					if (src[index] == L'\"' && src[index - 1] != L'\\') {
@@ -67,25 +74,19 @@ namespace amalt {
 			case '[':
 			case ']':
 			case '\'':
-				if (buffer.length() != 0) {
-					ts.push_back(Token(Fk(buffer), buffer, line, pos));
-					buffer.clear();
-					pos++;
-				}
+				Uimmm
 				ts.push_back(Token(static_cast<Token::Type>(src[index]), L"",line,pos));
 				break;
 			case '\n':
+				Uimmm
 				line++;
 				pos = 0;
+				break;
 			case '\0':
 			case '\t':
 			case ' ':
 			case EOF:
-				if (buffer.length() != 0) {
-					ts.push_back(Token(Fk(buffer), buffer, line, pos));
-					buffer.clear();
-					pos++;
-				}
+				Uimmm
 				break;
 			default:
 				buffer += src[index];

@@ -1,75 +1,106 @@
 #pragma once
 
-//#include <string>
-#include <vector>
+#include <variant>
 #include <memory>
 #include "Objects.h"
 
 namespace amalt {
-	class Token {
-	public:
-		enum Type {
-			LP = '(',
-			RP = ')',
-			LMP = '[',
-			RMP = ']',
-			QUO = '\'',
 
-			//NUM = 'N',
-			FLOAT = 'f',
-			UINT = 'U',
-			INT = 'I',
-			STR = 'S',
-			SYM = 's',
-		};
-		Type tp;
-		std::wstring exvalue;
-		size_t line, pos;
-
-		Token(Type t, std::wstring v, size_t line, size_t pos);
-
-		bool typeEq(const Token &) const;
-		bool operator==(const Token &) const;
-		bool operator!=(const Token &) const;
-
-		std::wstring toString() const;
-	};
-
+	class TupleAst;
+	class QuoteAst;
+	class LetAst;
 
 	class AST {
 	public:
 		enum Type {
-			//OBJ,
+			//NIL_,
+
+			INT,
+			UINT,
+			FLOAT,
+			STRING,
+			SYMBOL,
+
+			TUPLE,
+
+			QUOTE,
+
 			LET,
-			IF_,
 			COND,
 			MATCH,
-			DEFUN,
-			QUOTE,
 			FCALL,
-			LAMBDA,
-		} type;
+			DEFUN,
+			//LAMBDA_,
+		};
+		const Type type;
 
+		using ae = std::variant <
+			//base data
+			i64,
+			ui64,
+			f64,
+			RString,
+
+			// ast struct
+
+			std::unique_ptr<QuoteAst>,
+			std::unique_ptr<TupleAst>,
+			std::unique_ptr<LetAst>
+
+		>;
+		ae expr;
 		const ui64 line, pos;
 
-		AST(Type t, const ui64 l, const ui64 p) : type(t), line(l), pos(p) {}
-		AST(AST &) = default;
+		AST(const Type t,ae e, const ui64 l, const ui64 p);
+		AST(const AST &) = default;
 		AST(AST &&) = default;
-		//virtual Value eval() = 0;
 	};
 
-	class FCallAST : public AST {
-	public:
-		std::vector<AST> args;
+	class TupleAst : public std::vector<AST> {};
+	class QuoteAst : public AST {};
 
-		FCallAST(const ui64 l, const ui64 p, std::vector<AST> a):
-			AST(FCALL, l, p), args(std::move(a)) {}
+	class DefaultAst {
+	public:
+		DefaultAst() = default;
+		DefaultAst(const DefaultAst &) = default;
+		DefaultAst(DefaultAst &&) = default;
 	};
 
-	class DefunAST : public AST {
+	class LetAst : DefaultAst {
 	public:
-		String fname;
-		std::vector<String> args;
+		const RString name;
+		AST expr;
+		LetAst(const RString n, AST e);
+	};
 
+	class CondAst : DefaultAst {
+	public:
+		std::vector<std::tuple<AST, AST>> exprlist;
+
+		CondAst(std::vector<std::tuple<AST, AST>> &el);
+	};
+
+	class MatchAst : DefaultAst {
+	public:
+		AST expr;
+		std::vector<std::tuple<AST, AST>> exprlist;
+
+		MatchAst(AST e, std::vector<std::tuple<AST, AST>> &el);
+	};
+
+	class FCallAst : DefaultAst {
+	public:
+		std::vector<std::tuple<AST, AST>> exprlist;
+
+		FCallAst(std::vector<std::tuple<AST, AST>> &el);
+	};
+
+	class DefunAst : DefaultAst {
+		const RString name;
+		const std::vector<RString> argsnames;
+		// expend
+		std::vector<AST> exprlist;
+
+		DefunAst(const RString n, const std::vector<RString> &an, std::vector<AST> &el);
 	};
 }

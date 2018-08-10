@@ -6,16 +6,16 @@ namespace amalt {
 
 	RTFunction::RTFunction(std::string n = "<Lambda>") : Function(std::move(n)) {}
 
-	Value RTFunction::fcall(Mark<Tuple> args)
+	Value RTFunction::fcall(RTuple args)
 	{
 		return Value(BOOLT, false);
 	}
 
-	NativeInterface::
-		NativeInterface(std::string n = "<Unknown>", NativeFunction fp = nullptr):
+	NativeFunction::
+		NativeFunction(std::string n = "<Unknown>", NativeInterface fp = nullptr):
 		Function(std::move(n)), f(std::move(fp)) {}
 
-	Value NativeInterface::fcall(Mark<Tuple> args)
+	Value NativeFunction::fcall(RTuple args)
 	{
 		return f(args);
 	}

@@ -4,18 +4,17 @@
 using namespace std;
 using namespace amalt;
 
-String copys(L"Please use Ctrl-c to quit repl.");
+String exithelp(L"Please use Ctrl-c to exit repl.");
 
 int main(int argc, char **argv) {
 	String src;
 	for (;;) {
-		wcin >> src;
-		//src += L'\n';
+		getline(wcin, src);
+		src += L'\n';
 		auto ts = Lexer(src);
 		for (auto &i : ts) {
-			wcout << i.toString() << endl;
+			wcout << i.toString() << i.line << ":" << i.pos << endl;
 		}
 	}
-	//for (;;)
 	return 0;
 }

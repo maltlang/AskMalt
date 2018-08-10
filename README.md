@@ -1,14 +1,15 @@
 # AskMalt
 The Ask Malt Programming Language
 
-## Compiled：
+### Compiled：
 Use Visual Studio (2017) Build
 
 Not compiled successfully in linux (怀疑因为g++不是最新的导致的问题，但不知道具体为啥，有知道的大佬麻烦帮我下（背锅
 
-## Warnings:
+### Warnings:
 - 一切不被认定为float/int/uint类型的atom字面量都会被认定为symbol
-- 有时候UInt(unsigned long long)会用作很脏的功能——储存地址
+- 所有有副作用的函数或关键字都会在后边加上!，函数的定义是手动标记的，不排除以后加入强制检查，请谨记
+- 还没有实现loop相关的谓词和函数（因为现在只需要一个最小的，能跑的东西）以后会加上
 
 ### FA&Q:
 - When building with VisualStudio, Project Can only be an English Path (Because nijia only supports ASCII)

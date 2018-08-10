@@ -9,9 +9,9 @@ project ("AskMalt")
 
 include_directories(include/)
 
-set(SrcPath src/main.cpp include/Value.h include/Predefined.h include/Function.h src/Object/Function.cpp src/Object/Mark.cpp include/Parser/AST.h include/Parser/Lexer.h src/Parser/AST.cpp src/Parser/Lexer.cpp)
+set(SrcPath src/main.cpp include/Value.h include/Predefined.h include/Function.h src/Object/Function.cpp src/Object/Mark.cpp include/Parser/Token.h include/Parser/Lexer.h src/Parser/Token.cpp src/Parser/Lexer.cpp include/Parser/AST.h src/Parser/AST.cpp src/Parser/Parser.cpp)
 
-set(ExecName amalt)
+set(ExecName malt)
 
 #add_library(lib${ExecName} ${SrcPath})
 

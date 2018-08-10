@@ -15,7 +15,7 @@ namespace amalt {
 		std::string name;
 
 		explicit Function(std::string n);
-		virtual Value fcall(Mark<Tuple>) = 0;
+		virtual Value fcall(RTuple) = 0;
 	};
 
 	class Module;
@@ -25,16 +25,19 @@ namespace amalt {
 		std::weak_ptr<Module> mod;
 
 		explicit RTFunction(std::string n);	//TODO:env
-		Value fcall(Mark<Tuple>) override;
+		Value fcall(RTuple) override;
 	};
 
-	using NativeFunction = std::function<Value(Mark<Tuple>)>;
+	using NativeInterface = std::function<Value(RTuple)>;
 
-	class NativeInterface : Function {
+	class NativeFunction : Function {
 	public:
-		NativeFunction f;
+		NativeInterface f;
 
-		NativeInterface(std::string n, NativeFunction f);
-		Value fcall(Mark<Tuple>) override;
+		NativeFunction(std::string n, NativeInterface f);
+		Value fcall(RTuple) override;
 	};
+
+	using RRTFunction = std::shared_ptr<RTFunction>;
+	using RNativeInterface = std::shared_ptr<NativeInterface>;
 }

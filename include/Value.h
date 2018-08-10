@@ -25,20 +25,14 @@ namespace amalt {
 		//wchar_t,	// 只有娘炮才用wchar_t，真男人只用wString
 		ui64, i64, f64,
 		// ref object
-		//Mark<String>,
-		//Mark<Tuple>,
-		//Mark<List>,
-		//Mark<Dict>,
-		// function
-		//Mark<RTFunction>,
-		std::shared_ptr<String>,
-		std::shared_ptr<Tuple>,
-		std::shared_ptr<List>,
-		std::shared_ptr<Dict>,
-		std::shared_ptr<RTFunction>,
-		std::shared_ptr<NativeInterface>,
+		RString,
+		RTuple,
+		RList,
+		RDict,
+		RRTFunction,
+		RNativeInterface,
 		// userdata
-		std::shared_ptr<UserDatas>
+		RUserDatas
 	>;
 
 	enum Type {
