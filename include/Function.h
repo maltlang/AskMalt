@@ -37,7 +37,4 @@ namespace amalt {
 		NativeFunction(std::string n, NativeInterface f);
 		Value fcall(RTuple) override;
 	};
-
-	using RRTFunction = std::shared_ptr<RTFunction>;
-	using RNativeInterface = std::shared_ptr<NativeInterface>;
 }
