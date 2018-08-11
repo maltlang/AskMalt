@@ -1,3 +1,0 @@
-C:/Users/enter/source/repos/AskMalt/cmake-build-debug/CMakeFiles/amalt.dir
-C:/Users/enter/source/repos/AskMalt/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/enter/source/repos/AskMalt/cmake-build-debug/CMakeFiles/rebuild_cache.dir
