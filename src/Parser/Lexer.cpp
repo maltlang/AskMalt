@@ -22,7 +22,7 @@ namespace amalt {
 
 	#define Uimmm					\
 		if (buffer.length() != 0) {	\
-			ts.push_back(Token(Fk(buffer), buffer, line, pos));	\
+			ts.push_back(Token(Fk(buffer), buffer, line, pos-buffer.size()));	\
 			buffer.clear();			\
 			pos++;					\
 		}
@@ -76,11 +76,12 @@ namespace amalt {
 			case '\'':
 				Uimmm
 				ts.push_back(Token(static_cast<Token::Type>(src[index]), L"",line,pos));
+				pos++;
 				break;
 			case '\n':
 				Uimmm
 				line++;
-				pos = 0;
+				pos = 1;
 				break;
 			case '\0':
 			case '\t':
