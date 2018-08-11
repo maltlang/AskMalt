@@ -6,6 +6,7 @@ namespace amalt {
 	LetAst::LetAst(AST n, AST e) : nexpr(std::move(n)), vexpr(std::move(e)) {}
 	//CondAst::CondAst() {}
 	CondAst::CondAst(std::vector<std::shared_ptr<TupleAst>> &el) : exprlist(std::move(el)) {}
+	MatchAst::MatchAst(AST e) : expr(e) {}
 	MatchAst::MatchAst(AST e, std::vector<std::shared_ptr<TupleAst>>& el) : expr(std::move(e)), exprlist(std::move(el)) {}
 	FCallAst::FCallAst(TupleAst el) : exprlist(std::move(el)) {}
 	DefunAst::DefunAst(const RString n, const std::vector<RString>& an, std::vector<AST>& el) : name(std::move(n)), argsnames(std::move(an)), exprlist(std::move(el)) {}
@@ -49,6 +50,9 @@ namespace amalt {
 		case COND:
 			s = std::get<std::shared_ptr<CondAst>>(expr).get()->toString();
 			break;
+		case MATCH:
+			s = std::get<std::shared_ptr<MatchAst>>(expr).get()->toString();
+			break;
 		default:
 			s = L"还没写完，慌什么慌啦";
 			break;
@@ -62,83 +66,53 @@ namespace amalt {
 	String CondAst::toString()
 	{
 		String s;
-		if (exprlist.size() != 0) {
-			for (size_t i = 0;; i++) {
-				s += exprlist[i].get()->toString();
-				if (i == exprlist.size()-1) {
-					break;
-				}
-				s += L' ';
-			}
+		for (auto &i : exprlist) {
+			s += L' ';
+			s += i.get()->toString();
 		}
-		return String(L"(cond ") + s + String(L")");
+		return String(L"(cond") + s + String(L")");
 	}
 	String MatchAst::toString()
 	{
 		String s;
-		if (exprlist.size() != 0) {
-			for (size_t i = 0;; i++) {
-				s += exprlist[i].get()->toString();
-				if (i == exprlist.size()-1) {
-					break;
-				}
-				s += L' ';
-			}
+		for (auto &i : exprlist) {
+			s += L' ';
+			s += i.get()->toString();
 		}
-		return String(L"(match ") + expr.toString() + String(L")");
+		return String(L"(match ") + expr.toString() + s + String(L")");
 	}
 	String FCallAst::toString()
 	{
 		String s;
-		if (exprlist.size() != 0) {
-			for (size_t i = 0;; i++) {
-				s += exprlist[i].toString();
-				if (i == exprlist.size()-1) {
-					break;
-				}
-				s += L' ';
-			}
+		for (auto &i : exprlist) {
+			s += L' ';
+			s += i.toString();
 		}
 		return String(L"(") + s + String(L")");
 	}
 	String DefunAst::toString()
 	{
 		String ns;
-		if (exprlist.size() != 0) {
-			for (size_t i = 0;; i++) {
-				ns += *argsnames[i];
-				if (i == exprlist.size()-1) {
-					break;
-				}
-				ns += L' ';
-			}
+		for (auto &i : argsnames) {
+			ns += L' ';
+			ns += String(L"\"") + *i + String(L"\"");
 		}
 		String s;
-		if (exprlist.size() != 0) {
-			for (size_t i = 0;; i++) {
-				s += exprlist[i].toString();
-				if (i == exprlist.size()-1) {
-					break;
-				}
-				s += L' ';
-			}
+		for (auto &i : exprlist) {
+			s += L' ';
+			s += i.toString();
 		}
-		return String(L"(fun ") + *name + String(L"(")  + ns + String(L")") +
+		return String(L"(fun") + *name + String(L"(")  + ns + String(L")") +
 			s + String(L")");
 	}
 	String TupleAst::toString()
 	{
 		String s;
-		if (this->size() != 0) {
-			for (size_t i = 0;; i++) {
-				s += this->operator[](i).toString();
-				if (i == this->size() -1) {
-					break;
-				}
-				s += L' ';
-			}
+		for (auto &i : *this) {
+			s += L' ';
+			s += i.toString();
 		}
-		return String(L"(tuple ") + s + String(L")");
+		return String(L"(tuple") + s + String(L")");
 	}
 	String QuoteAst::toString()
 	{

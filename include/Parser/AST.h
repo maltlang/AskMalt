@@ -10,6 +10,7 @@ namespace amalt {
 	class QuoteAst;
 	class LetAst;
 	class CondAst;
+	class MatchAst;
 
 	class AST {
 	public:
@@ -45,7 +46,8 @@ namespace amalt {
 			std::shared_ptr<QuoteAst>,
 			std::shared_ptr<TupleAst>,
 			std::shared_ptr<LetAst>,
-			std::shared_ptr<CondAst>
+			std::shared_ptr<CondAst>,
+			std::shared_ptr<MatchAst>
 		>;
 		ae expr;
 		const ui64 line, pos;
@@ -97,6 +99,7 @@ namespace amalt {
 		AST expr;
 		std::vector<std::shared_ptr<TupleAst>> exprlist;
 
+		MatchAst(AST e);
 		MatchAst(AST e, std::vector<std::shared_ptr<TupleAst>> &el);
 		String toString();
 	};

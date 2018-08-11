@@ -23,7 +23,6 @@ int main(int argc, char **argv) {
 				auto rast = Parser(ts, i);
 				if (std::get_if<AST>(&rast)) {
 					wcout << std::get<AST>(rast).toString() << endl;
-					i++;
 				}
 				else {
 					throw ParserException(L"表达式不完整", std::get<Token>(rast).line, std::get<Token>(rast).pos);
