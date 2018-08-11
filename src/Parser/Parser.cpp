@@ -203,7 +203,4 @@ namespace amalt {
 		}
 		//return AST(AST::TUPLE, std::make_shared<TupleAst>(r), first.line, first.pos);
 	}
-
-
-
 }
