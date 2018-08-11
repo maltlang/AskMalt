@@ -10,23 +10,30 @@ namespace amalt {
 		try
 		{
 			if (e.tp == Token::INT) {
+				idx++;
 				return AST(AST::INT, AST::ae(std::stoll(e.exvalue)), e.line, e.pos);
 			}
 			else if (e.tp == Token::UINT) {
+				idx++;
 				return AST(AST::UINT, AST::ae(std::stoull(e.exvalue)), e.line, e.pos);
 			}
 			else if (e.tp == Token::FLOAT) {
+				idx++;
 				return AST(AST::FLOAT, AST::ae(std::stod(e.exvalue)), e.line, e.pos);
 			}
 			else if (e.tp == Token::STR) {
+				idx++;
 				return AST(AST::STRING, AST::ae(std::make_shared<String>(e.exvalue)), e.line, e.pos);
 			}
 			else if (e.tp == Token::SYM) {
+				idx++;
 				return AST(AST::SYMBOL, AST::ae(std::make_shared<String>(e.exvalue)), e.line, e.pos);
 			}
 			else if (e.tp == Token::QUO) {
+				idx++;
 				auto r = Parser(tf, idx);
 				if (std::get_if<AST>(&r)) {
+					//idx++;
 					return AST(AST::QUOTE, std::make_shared<QuoteAst>(std::get<AST>(r)), e.line, e.pos);
 				}
 				else {
@@ -37,6 +44,7 @@ namespace amalt {
 
 			auto r0 = TupleParser(tf, idx);
 			if (std::get_if<AST>(&r0)) {
+				//idx++;
 				return r0;
 			} else {
 				idx = rsz;
@@ -44,11 +52,11 @@ namespace amalt {
 
 			auto r1 = ListParser(tf, idx);
 			if (std::get_if<AST>(&r1)) {
+				idx++;
 				return r1;
 			} else {
 				idx = rsz;
 			}
-
 			return e;
 		}
 		catch (const std::out_of_range&)
@@ -80,7 +88,7 @@ namespace amalt {
 		}
 		catch (const std::out_of_range&)
 		{
-			throw ParserException(L"表达式不完整", tf[idx-1].line, tf[idx - 1].pos);
+			throw ParserException(L"表达式不完整", tf[idx-1].line, tf[idx-1].pos);
 		}
 		return AST(AST::TUPLE, std::make_shared<TupleAst>(r), first.line, first.pos);
 	}

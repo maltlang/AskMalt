@@ -18,21 +18,22 @@ int main(int argc, char **argv) {
 	auto ts = Lexer(src);
 		try
 		{
-			//for (;;) {
+			for (;i < ts.size();) {
 				auto rast = Parser(ts, i);
 				if (std::get_if<AST>(&rast)) {
 					wcout << std::get<AST>(rast).toString() << endl;
+					i++;
 				}
 				else {
+					throw ParserException(L"表达式不完整", std::get<Token>(rast).line, std::get<Token>(rast).pos);
 					wcerr << L"***ParserError " << std::get<Token>(rast).line << L":" << std::get<Token>(rast).pos << endl;
 				}
-			//}
+			}
 		} catch (std::out_of_range&) {
 			wcout << "表达式不完整" << endl;
 		} catch (ParserException&e) {
 			wcout << e.toString() << endl;
 		}
 		for (;;);
-	
 	return 0;
 }
