@@ -10,7 +10,8 @@ project ("AskMalt")
 include_directories(include/)
 
 set(SrcPath src/main.cpp include/Value.h include/Predefined.h include/Function.h src/Object/Function.cpp include/Objects.h src/Object/Objects.cpp
-include/Parser/Token.h include/Parser/Lexer.h src/Parser/Token.cpp src/Parser/Lexer.cpp include/Parser/AST.h src/Parser/AST.cpp src/Parser/Parser.cpp)
+include/Parser/Token.h include/Parser/Lexer.h src/Parser/Token.cpp src/Parser/Lexer.cpp include/Parser/AST.h src/Parser/AST.cpp include/Parser/Parser.h src/Parser/Parser.cpp
+include/Exception.h src/Object/Exception.cpp)
 
 set(ExecName malt)
 

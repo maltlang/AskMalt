@@ -11,7 +11,6 @@ Expr
 
 RExpr
 	::=	Let
-	|	If
 	|	Cond
 	|	Match
 	|	Defun
@@ -20,16 +19,11 @@ RExpr
 	|	FCall
 	;
 
-Let ::= "let" Symbol Expr ;
+Let ::= "let" Expr Expr ;
 
-If
-	::= "if" Expr Expr
-	|   "if" Expr Expr Expr
-	;
+Cond ::= "cond" Tuple+ ;
 
-Cond ::= "cond" ('[' Expr Expr ']')+ ;
-
-Match ::= "match" Expr ('[' Expr Expr ']')+ ;
+Match ::= "match" Expr Tuple+ ;
 
 Defun ::= "fun" Symbol '(' (Name)+ ')' (Expr)+ ;
 

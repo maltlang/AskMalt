@@ -1,5 +1,5 @@
 #include <iostream>
-#include "./Parser/Lexer.h"
+#include "Parser/Lexer.h"
 
 using namespace std;
 using namespace amalt;

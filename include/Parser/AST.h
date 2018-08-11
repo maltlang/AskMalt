@@ -40,24 +40,31 @@ namespace amalt {
 			ui64,
 			f64,
 			RString,
-
 			// ast struct
-
-			std::unique_ptr<QuoteAst>,
-			std::unique_ptr<TupleAst>,
-			std::unique_ptr<LetAst>
-
+			std::shared_ptr<QuoteAst>,
+			std::shared_ptr<TupleAst>,
+			std::shared_ptr<LetAst>
 		>;
 		ae expr;
 		const ui64 line, pos;
 
 		AST(const Type t,ae e, const ui64 l, const ui64 p);
-		AST(const AST &) = default;
+		AST(const AST &o) = default;
 		AST(AST &&) = default;
+
+		String toString();
 	};
 
-	class TupleAst : public std::vector<AST> {};
-	class QuoteAst : public AST {};
+	class TupleAst : public std::vector<AST> {
+	public:
+		String toString();
+	};
+	class QuoteAst{
+	public:
+		AST expr;
+		String toString();
+		QuoteAst(AST e);
+	};
 
 	class DefaultAst {
 	public:
@@ -68,31 +75,35 @@ namespace amalt {
 
 	class LetAst : DefaultAst {
 	public:
-		const RString name;
-		AST expr;
-		LetAst(const RString n, AST e);
+		AST nexpr;
+		AST vexpr;
+		LetAst(AST n, AST e);
+		String toString();
 	};
 
 	class CondAst : DefaultAst {
 	public:
-		std::vector<std::tuple<AST, AST>> exprlist;
+		std::vector<TupleAst> exprlist;
 
-		CondAst(std::vector<std::tuple<AST, AST>> &el);
+		CondAst(std::vector<TupleAst> &el);
+		String toString();
 	};
 
 	class MatchAst : DefaultAst {
 	public:
 		AST expr;
-		std::vector<std::tuple<AST, AST>> exprlist;
+		std::vector<TupleAst> exprlist;
 
-		MatchAst(AST e, std::vector<std::tuple<AST, AST>> &el);
+		MatchAst(AST e, std::vector<TupleAst> &el);
+		String toString();
 	};
 
 	class FCallAst : DefaultAst {
 	public:
-		std::vector<std::tuple<AST, AST>> exprlist;
+		TupleAst exprlist;
 
-		FCallAst(std::vector<std::tuple<AST, AST>> &el);
+		FCallAst(TupleAst el);
+		String toString();
 	};
 
 	class DefunAst : DefaultAst {
@@ -102,5 +113,6 @@ namespace amalt {
 		std::vector<AST> exprlist;
 
 		DefunAst(const RString n, const std::vector<RString> &an, std::vector<AST> &el);
+		String toString();
 	};
 }
