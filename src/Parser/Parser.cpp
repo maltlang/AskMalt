@@ -94,7 +94,62 @@ namespace amalt {
 	}
 
 	inline ResAST ListParser(std::vector<Token> &tf, size_t &idx) {
-		return tf.at(idx);
+		auto first = tf.at(idx);
+		size_t rsz = idx;
+		if (first.tp != Token::LP) {
+			return tf[idx];
+		}
+		idx++;
+		auto em = idx;
+		try
+		{
+			auto r = tf.at(idx);
+			if (r.tp == Token::RP) {
+				return AST(AST::NIL_, ui64(0), first.line, first.pos);
+			}
+			if (r == Token(Token::SYM, L"\\", 0, 0)) {
+				// lambda
+			}
+			if (r == Token(Token::SYM, L"fun", 0, 0)) {
+				// defun
+			}
+			if (r == Token(Token::SYM, L"let", 0, 0)) {
+				// let
+				idx++;
+				auto a = Parser(tf, idx);
+				if (!std::get_if<AST>(&a)) {
+					idx = em;
+					goto letend;
+				}
+				auto a1 = Parser(tf, idx);
+				if (!std::get_if<AST>(&a1)) {
+					idx = em;
+					goto letend;
+				}
+				if (tf.at(idx).tp == Token::RP) {
+					return AST(AST::LET, std::make_shared<LetAst>(std::get<AST>(a), std::get<AST>(a1)), first.line, first.pos);
+				} else {
+					idx = em;
+					goto letend;
+				}
+			}
+		letend:
+			if (r == Token(Token::STR, L"cond", 0, 0)) {
+				// cond
+			}
+			if (r == Token(Token::STR, L"match", 0, 0)) {
+				// match
+			}
+			// fcall
+			return r;
+		}
+		catch (const std::out_of_range&)
+		{
+			throw ParserException(L"表达式不完整", tf[idx - 1].line, tf[idx - 1].pos);
+		}
+		//return AST(AST::TUPLE, std::make_shared<TupleAst>(r), first.line, first.pos);
 	}
+
+
 
 }

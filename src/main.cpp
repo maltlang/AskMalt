@@ -26,7 +26,6 @@ int main(int argc, char **argv) {
 				}
 				else {
 					throw ParserException(L"表达式不完整", std::get<Token>(rast).line, std::get<Token>(rast).pos);
-					wcerr << L"***ParserError " << std::get<Token>(rast).line << L":" << std::get<Token>(rast).pos << endl;
 				}
 			}
 		} catch (std::out_of_range&) {

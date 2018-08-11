@@ -13,7 +13,7 @@ namespace amalt {
 	class AST {
 	public:
 		enum Type {
-			//NIL_,
+			NIL_,
 
 			INT,
 			UINT,
@@ -49,9 +49,10 @@ namespace amalt {
 		const ui64 line, pos;
 
 		AST(const Type t,ae e, const ui64 l, const ui64 p);
+		//AST();
 		AST(const AST &o) = default;
 		AST(AST &&) = default;
-
+		//AST operator=(const AST&);
 		String toString();
 	};
 

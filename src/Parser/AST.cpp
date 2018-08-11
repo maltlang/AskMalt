@@ -2,17 +2,25 @@
 
 namespace amalt {
 	AST::AST(const Type t, ae e, const ui64 l, const ui64 p) : type(t), expr(std::move(e)), line(l), pos(p) {}
+	//AST::AST() : type(INT), expr(), line(0), pos(0) {}
 	LetAst::LetAst(AST n, AST e) : nexpr(std::move(n)), vexpr(std::move(e)) {}
 	CondAst::CondAst(std::vector<TupleAst> &el) : exprlist(std::move(el)) {}
 	MatchAst::MatchAst(AST e, std::vector<TupleAst>& el) : expr(std::move(e)), exprlist(std::move(el)) {}
 	FCallAst::FCallAst(TupleAst el) : exprlist(std::move(el)) {}
 	DefunAst::DefunAst(const RString n, const std::vector<RString>& an, std::vector<AST>& el) : name(std::move(n)), argsnames(std::move(an)), exprlist(std::move(el)) {}
 	QuoteAst::QuoteAst(AST e) : expr(e) {}
+	/*AST AST::operator=(const AST & o)
+	{
+		return AST(o);
+	}*/
 	String AST::toString()
 	{
 		String s;
 		switch (type)
 		{
+		case NIL_:
+			s = L"nil";
+			break;
 		case INT:
 			s = std::to_wstring(std::get<i64>(expr));
 			break;
@@ -34,6 +42,9 @@ namespace amalt {
 		case QUOTE:
 			s = std::get<std::shared_ptr<QuoteAst>>(expr).get()->toString();
 			break;
+		case LET:
+			s = std::get<std::shared_ptr<LetAst>>(expr).get()->toString();
+			break;
 		default:
 			s = L"还没写完，慌什么慌啦";
 			break;
@@ -42,7 +53,7 @@ namespace amalt {
 	}
 	String LetAst::toString()
 	{
-		return String(L"(let ") + nexpr.toString() + vexpr.toString() + String(L")");
+		return String(L"(let ") + nexpr.toString() + String(L" ") + vexpr.toString() + String(L")");
 	}
 	String CondAst::toString()
 	{
