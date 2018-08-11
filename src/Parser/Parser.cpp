@@ -179,6 +179,22 @@ namespace amalt {
 			}
 			matchend:
 			// fcall
+			{
+				auto rs = std::make_shared<FCallAst>();
+				for (;;) {
+					if (tf.at(idx).tp == Token::RP) {
+						idx++;
+						break;
+					}
+					auto ta = Parser(tf, idx);
+					if (!std::get_if<AST>(&ta)) {
+						idx = em;
+						goto matchend;
+					}
+					rs.get()->exprlist.push_back(std::get<AST>(ta));
+				}
+				return AST(AST::FCALL, rs, first.line, first.pos);
+			}
 			return r;
 		}
 		catch (const std::out_of_range&)

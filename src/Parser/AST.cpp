@@ -8,7 +8,8 @@ namespace amalt {
 	CondAst::CondAst(std::vector<std::shared_ptr<TupleAst>> &el) : exprlist(std::move(el)) {}
 	MatchAst::MatchAst(AST e) : expr(e) {}
 	MatchAst::MatchAst(AST e, std::vector<std::shared_ptr<TupleAst>>& el) : expr(std::move(e)), exprlist(std::move(el)) {}
-	FCallAst::FCallAst(TupleAst el) : exprlist(std::move(el)) {}
+	//FCallAst::FCallAst() {}
+	FCallAst::FCallAst(std::vector<AST> &el) : exprlist(std::move(el)) {}
 	DefunAst::DefunAst(const RString n, const std::vector<RString>& an, std::vector<AST>& el) : name(std::move(n)), argsnames(std::move(an)), exprlist(std::move(el)) {}
 	QuoteAst::QuoteAst(AST e) : expr(e) {}
 	/*AST AST::operator=(const AST & o)
@@ -52,6 +53,9 @@ namespace amalt {
 			break;
 		case MATCH:
 			s = std::get<std::shared_ptr<MatchAst>>(expr).get()->toString();
+			break;
+		case FCALL:
+			s = std::get<std::shared_ptr<FCallAst>>(expr).get()->toString();
 			break;
 		default:
 			s = L"还没写完，慌什么慌啦";

@@ -11,6 +11,7 @@ namespace amalt {
 	class LetAst;
 	class CondAst;
 	class MatchAst;
+	class FCallAst;
 
 	class AST {
 	public:
@@ -47,7 +48,8 @@ namespace amalt {
 			std::shared_ptr<TupleAst>,
 			std::shared_ptr<LetAst>,
 			std::shared_ptr<CondAst>,
-			std::shared_ptr<MatchAst>
+			std::shared_ptr<MatchAst>,
+			std::shared_ptr<FCallAst>
 		>;
 		ae expr;
 		const ui64 line, pos;
@@ -106,9 +108,10 @@ namespace amalt {
 
 	class FCallAst : DefaultAst {
 	public:
-		TupleAst exprlist;
+		std::vector<AST> exprlist;
 
-		FCallAst(TupleAst el);
+		FCallAst() = default;
+		FCallAst(std::vector<AST> &el);
 		String toString();
 	};
 
