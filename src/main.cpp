@@ -11,14 +11,15 @@ String exithelp(L"Please use Ctrl-c to exit repl.");
 int main(int argc, char **argv) {
 	setlocale(LC_CTYPE, "C");
 	wcout.imbue(locale("chs"));
-	String src;
-	size_t i = 0;
-	getline(wcin, src);
-	src += L'\n';
-	auto ts = Lexer(src);
+	for (;;) {
+		String src;
+		size_t i = 0;
+		getline(wcin, src);
+		src += L'\n';
+		auto ts = Lexer(src);
 		try
 		{
-			for (;i < ts.size();) {
+			for (; i < ts.size();) {
 				auto rast = Parser(ts, i);
 				if (std::get_if<AST>(&rast)) {
 					wcout << std::get<AST>(rast).toString() << endl;
@@ -28,11 +29,14 @@ int main(int argc, char **argv) {
 					throw ParserException(L"表达式不完整", std::get<Token>(rast).line, std::get<Token>(rast).pos);
 				}
 			}
-		} catch (std::out_of_range&) {
+		}
+		catch (std::out_of_range&) {
 			wcout << "表达式不完整" << endl;
-		} catch (ParserException&e) {
+		}
+		catch (ParserException&e) {
 			wcout << e.toString() << endl;
 		}
-		for (;;);
+	}
+//		for (;;);
 	return 0;
 }

@@ -74,7 +74,7 @@ namespace amalt {
 		TupleAst r;
 		try
 		{
-			for (idx++; ; idx++) {
+			for (idx++; ; ) {
 				if (tf.at(idx).tp == Token::RMP) {
 					break;
 				}
@@ -134,9 +134,24 @@ namespace amalt {
 				}
 			}
 		letend:
-			if (r == Token(Token::STR, L"cond", 0, 0)) {
+			if (r == Token(Token::SYM, L"cond", 0, 0)) {
 				// cond
+				auto r = std::make_shared<CondAst>();
+				//std::vector<std::shared_ptr<TupleAst>> r;
+				for (idx++; ; idx++) {
+					if (tf.at(idx).tp == Token::RP) {
+						break;
+					}
+					auto a = TupleParser(tf, idx);
+					if (!std::get_if<AST>(&a)) {
+						idx = em;
+						goto condend;
+					}
+					r.get()->exprlist.push_back(std::get<std::shared_ptr<TupleAst>>(std::get<AST>(a).expr));
+				}
+				return AST(AST::COND, r, first.line, first.pos);
 			}
+			condend:
 			if (r == Token(Token::STR, L"match", 0, 0)) {
 				// match
 			}
