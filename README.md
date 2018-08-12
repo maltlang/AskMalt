@@ -2,7 +2,7 @@
 The Ask Malt Programming Language
 
 ### Compiled：
-Use Visual Studio (2017) Build
+Please use MSVC to compile core and extension on Windows.
 
 Not compiled successfully in linux (怀疑因为g++不是最新的导致的问题，但不知道具体为啥，有知道的大佬麻烦帮我下（背锅
 

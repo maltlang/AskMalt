@@ -10,7 +10,7 @@ namespace amalt {
 	MatchAst::MatchAst(AST e, std::vector<std::shared_ptr<TupleAst>>& el) : expr(std::move(e)), exprlist(std::move(el)) {}
 	//FCallAst::FCallAst() {}
 	FCallAst::FCallAst(std::vector<AST> &el) : exprlist(std::move(el)) {}
-	DefunAst::DefunAst(const RString n, const std::vector<RString>& an, std::vector<AST>& el) : name(std::move(n)), argsnames(std::move(an)), exprlist(std::move(el)) {}
+	DefunAst::DefunAst(RString n, std::shared_ptr<TupleAst>& an, std::vector<AST>& el) : name(std::move(n)), argsnames(std::move(an)), exprlist(std::move(el)) {}
 	QuoteAst::QuoteAst(AST e) : expr(e) {}
 	/*AST AST::operator=(const AST & o)
 	{
@@ -57,6 +57,9 @@ namespace amalt {
 		case FCALL:
 			s = std::get<std::shared_ptr<FCallAst>>(expr).get()->toString();
 			break;
+		case DEFUN:
+			s = std::get<std::shared_ptr<DefunAst>>(expr).get()->toString();
+			break;
 		default:
 			s = L"还没写完，慌什么慌啦";
 			break;
@@ -96,17 +99,12 @@ namespace amalt {
 	}
 	String DefunAst::toString()
 	{
-		String ns;
-		for (auto &i : argsnames) {
-			ns += L' ';
-			ns += String(L"\"") + *i + String(L"\"");
-		}
 		String s;
 		for (auto &i : exprlist) {
 			s += L' ';
 			s += i.toString();
 		}
-		return String(L"(fun") + *name + String(L"(")  + ns + String(L")") +
+		return String(L"(fun ") + *name + String(L" ") + argsnames.get()->toString() +
 			s + String(L")");
 	}
 	String TupleAst::toString()

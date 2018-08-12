@@ -25,9 +25,9 @@ Cond ::= "cond" Tuple+ ;
 
 Match ::= "match" Expr Tuple+ ;
 
-Defun ::= "fun" Symbol '(' (Name)+ ')' (Expr)+ ;
+Defun ::= "fun" Symbol Tuple (Expr)+ ;
 
-Lambda ::= '\\' '(' (Name)+ ')' (Expr)+ ;
+Lambda ::= '\\' Tuple (Expr)+ ;
 
 FCall ::= (Expr)+ ;
 

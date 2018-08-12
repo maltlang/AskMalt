@@ -47,7 +47,7 @@ namespace amalt {
 					index++);
 				index++;
 				line++;
-				pos = 0;	
+				pos = 1;
 				break;
 			case '"':
 				Uimmm
@@ -58,7 +58,7 @@ namespace amalt {
 						break;
 					} else if (src[index] == L'\n') {
 						line++;
-						pos = 0;
+						pos = 1;
 					}
 					else {
 						buffer += src[index];

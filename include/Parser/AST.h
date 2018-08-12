@@ -12,6 +12,7 @@ namespace amalt {
 	class CondAst;
 	class MatchAst;
 	class FCallAst;
+	class DefunAst;
 
 	class AST {
 	public:
@@ -49,7 +50,8 @@ namespace amalt {
 			std::shared_ptr<LetAst>,
 			std::shared_ptr<CondAst>,
 			std::shared_ptr<MatchAst>,
-			std::shared_ptr<FCallAst>
+			std::shared_ptr<FCallAst>,
+			std::shared_ptr<DefunAst>
 		>;
 		ae expr;
 		const ui64 line, pos;
@@ -116,12 +118,13 @@ namespace amalt {
 	};
 
 	class DefunAst : DefaultAst {
-		const RString name;
-		const std::vector<RString> argsnames;
+	public:
+		RString name;
+		std::shared_ptr<TupleAst> argsnames;
 		// expend
 		std::vector<AST> exprlist;
 
-		DefunAst(const RString n, const std::vector<RString> &an, std::vector<AST> &el);
+		DefunAst(RString n, std::shared_ptr<TupleAst> &an, std::vector<AST> &el);
 		String toString();
 	};
 }

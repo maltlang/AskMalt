@@ -106,13 +106,67 @@ namespace amalt {
 		{
 			auto r = tf.at(idx);
 			if (r.tp == Token::RP) {
+				idx++;
 				return AST(AST::NIL_, ui64(0), first.line, first.pos);
 			}
 			if (r == Token(Token::SYM, L"\\", 0, 0)) {
 				// lambda
+				idx++;
+				auto a = TupleParser(tf, idx);
+				if (!std::get_if<AST>(&a)) {
+					idx = em;
+					goto lambdaend;
+				}
+				std::vector<AST> rs;
+				for (;;) {
+					if (tf.at(idx).tp == Token::RP) {
+						idx++;
+						break;
+					}
+					auto ta = Parser(tf, idx);
+					if (!std::get_if<AST>(&ta)) {
+						idx = em;
+						goto lambdaend;
+					}
+					rs.push_back(std::get<AST>(ta));
+				}
+				return AST(AST::DEFUN,
+					std::make_shared<DefunAst>(std::make_shared<String>(L"<lambda>"), std::get<std::shared_ptr<TupleAst>>(
+						std::get<AST>(a).expr), rs)
+					, first.line, first.pos);
 			}
+			lambdaend:
 			if (r == Token(Token::SYM, L"fun", 0, 0)) {
 				// defun
+				idx++;
+				auto n = tf[idx];
+				if (n.tp != Token::SYM) {
+					idx = em;
+					goto lambdaend;
+				}
+				idx++;
+				auto a = TupleParser(tf, idx);
+				if (!std::get_if<AST>(&a)) {
+					idx = em;
+					goto lambdaend;
+				}
+				std::vector<AST> rs;
+				for (;;) {
+					if (tf.at(idx).tp == Token::RP) {
+						idx++;
+						break;
+					}
+					auto ta = Parser(tf, idx);
+					if (!std::get_if<AST>(&ta)) {
+						idx = em;
+						goto lambdaend;
+					}
+					rs.push_back(std::get<AST>(ta));
+				}
+				return AST(AST::DEFUN,
+					std::make_shared<DefunAst>(std::make_shared<String>(n.exvalue), std::get<std::shared_ptr<TupleAst>>(
+						std::get<AST>(a).expr), rs)
+					, first.line, first.pos);
 			}
 			if (r == Token(Token::SYM, L"let", 0, 0)) {
 				// let
