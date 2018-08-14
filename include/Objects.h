@@ -14,14 +14,6 @@ namespace amalt {
 	//class Tuple : public std::vector<Value> {};
 	//class Dict : public std::unordered_map<String, Value> {};
 
-	class List {
-	public:
-		const ui64 len;
-		const Value car, cdr;
-
-		List(Value a, Value d);
-	};
-
 	class UserDatas {
 	public:
 		std::string type;

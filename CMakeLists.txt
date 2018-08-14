@@ -9,7 +9,7 @@ project ("AskMalt")
 
 include_directories(include/)
 
-set(SrcPath src/main.cpp include/Value.h include/Predefined.h include/Function.h src/Object/Function.cpp include/Objects.h src/Object/Objects.cpp
+set(SrcPath src/main.cpp include/Value.h include/Predefined.h include/Function.h src/Object/Function.cpp include/Objects.h
 include/Parser/Token.h include/Parser/Lexer.h src/Parser/Token.cpp src/Parser/Lexer.cpp include/Parser/AST.h src/Parser/AST.cpp include/Parser/Parser.h src/Parser/Parser.cpp
 include/Exception.h src/Object/Exception.cpp include/Core.h src/Core/eval.cpp
 src/Core/rep_print.cpp)

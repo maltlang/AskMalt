@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <list>
 #include <unordered_map>
 #include <variant>
 #include <memory>
@@ -16,11 +17,11 @@ namespace amalt {
 
 	using String = std::wstring;
 	using Tuple = std::vector<Value>;
+	using List = std::list<Value>;
 	using Dict = std::unordered_map<String, Value>;
 	//class String;
 	//class Tuple;
 	//class Dict;
-	class List;
 	class Function;
 	class RTFunction;
 	class NativeFunction;
