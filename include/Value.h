@@ -1,9 +1,12 @@
 #pragma once
 
+#include <string>
+#include <vector>
+#include <unordered_map>
 #include <variant>
 #include <memory>
 #include "Predefined.h"
-#include "Mark.h"
+//#include "Mark.h"
 //#include "Objects.h"
 //#include "Function.h"
 
@@ -56,6 +59,7 @@ namespace amalt {
 		FLOATT,
 
 		STRINGT,
+		SYMBOLT,
 		TUPLET,
 		LISTT,
 		DICTT,
@@ -72,6 +76,7 @@ namespace amalt {
 		Type tp;
 		RValue val;
 
+		Value() : tp(NIL), val(false) {}
 		Value(Type t, RValue v) : tp(t), val(std::move(v)) {}
 		Value(Value &) = default;
 	};

@@ -3,8 +3,9 @@
 
 #include <functional>
 #include <memory>
-#include "Objects.h"
+//#include "Objects.h"
 #include "Mark.h"
+#include "Parser/AST.h"
 //#include "Function.h"
 
 namespace amalt {
@@ -15,7 +16,6 @@ namespace amalt {
 		std::string name;
 
 		explicit Function(std::string n);
-		virtual Value fcall(RTuple) = 0;
 	};
 
 	class Module;
@@ -23,9 +23,9 @@ namespace amalt {
 	class RTFunction : Function {
 	public:
 		std::weak_ptr<Module> mod;
-
-		explicit RTFunction(std::string n);	//TODO:env
-		Value fcall(RTuple) override;
+		std::shared_ptr<RTFunction> env;
+		AST expr;
+		explicit RTFunction(std::string n, AST e);	//TODO:env
 	};
 
 	using NativeInterface = std::function<Value(RTuple)>;
@@ -35,6 +35,6 @@ namespace amalt {
 		NativeInterface f;
 
 		NativeFunction(std::string n, NativeInterface f);
-		Value fcall(RTuple) override;
+		Value fcall(RTuple);
 	};
 }

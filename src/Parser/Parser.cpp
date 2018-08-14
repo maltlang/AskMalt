@@ -231,7 +231,23 @@ namespace amalt {
 				}
 				return AST(AST::MATCH, rs, first.line, first.pos);
 			}
-			matchend:
+		matchend:
+			if (r == Token(Token::SYM, L"quote", 0, 0)) {
+				// match
+				idx++;
+				auto a = Parser(tf, idx);
+				if (!std::get_if<AST>(&a)) {
+					idx = em;
+					goto quoteend;
+				}
+				if (tf.at(idx).tp != Token::RP) {
+					idx = em;
+					goto quoteend;
+				}
+				idx++;
+				return AST(AST::QUOTE, std::make_shared<QuoteAst>(std::get<AST>(a)), first.line, first.pos);
+			}
+		quoteend:
 			// fcall
 			{
 				auto rs = std::make_shared<FCallAst>();

@@ -68,7 +68,7 @@ namespace amalt {
 	public:
 		String toString();
 	};
-	class QuoteAst{
+	class QuoteAst {
 	public:
 		AST expr;
 		String toString();
