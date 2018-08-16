@@ -142,13 +142,13 @@ namespace amalt {
 				auto n = tf[idx];
 				if (n.tp != Token::SYM) {
 					idx = em;
-					goto lambdaend;
+					goto funend;
 				}
 				idx++;
 				auto a = TupleParser(tf, idx);
 				if (!std::get_if<AST>(&a)) {
 					idx = em;
-					goto lambdaend;
+					goto funend;
 				}
 				std::vector<AST> rs;
 				for (;;) {
@@ -159,7 +159,7 @@ namespace amalt {
 					auto ta = Parser(tf, idx);
 					if (!std::get_if<AST>(&ta)) {
 						idx = em;
-						goto lambdaend;
+						goto funend;
 					}
 					rs.push_back(std::get<AST>(ta));
 				}
@@ -168,6 +168,7 @@ namespace amalt {
 						std::get<AST>(a).expr), rs)
 					, first.line, first.pos);
 			}
+			funend:
 			if (r == Token(Token::SYM, L"let", 0, 0)) {
 				// let
 				idx++;
@@ -259,12 +260,13 @@ namespace amalt {
 					auto ta = Parser(tf, idx);
 					if (!std::get_if<AST>(&ta)) {
 						idx = em;
-						goto matchend;
+						goto pend;
 					}
 					rs.get()->exprlist.push_back(std::get<AST>(ta));
 				}
 				return AST(AST::FCALL, rs, first.line, first.pos);
 			}
+			pend:
 			return r;
 		}
 		catch (const std::out_of_range&)

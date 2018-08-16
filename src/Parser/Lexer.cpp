@@ -24,7 +24,6 @@ namespace amalt {
 		if (buffer.length() != 0) {	\
 			ts.push_back(Token(Fk(buffer), buffer, line, pos-buffer.size()));	\
 			buffer.clear();			\
-			pos++;					\
 		}
 
 	std::vector<Token> Lexer(const String &src, const bool is_clear_index = false) {
@@ -38,11 +37,11 @@ namespace amalt {
 		}
 		for (size_t index = 0; index < slen; index++) {
 			switch (src[index]) {
-			case '#':
+			case L'#':
 				// 如果这里抛出字符串越界访问，就表明lexer失败了，告辞。直接抛出Runtime/LanguageException就行了
 				for (index++;
-					src[index] != '\n' &&
-					src[index] != '\0' &&
+					src[index] != L'\n' &&
+					src[index] != L'\0' &&
 					src[index] != EOF;
 					index++);
 				index++;
@@ -51,6 +50,7 @@ namespace amalt {
 				break;
 			case '"':
 				Uimmm
+				pos++;
 				index++;
 				for (size_t o = index;; index++) {
 					if (src[index] == L'\"' && src[index - 1] != L'\\') {
@@ -65,29 +65,31 @@ namespace amalt {
 						pos++;
 					}
 				}
-				ts.push_back(Token(Token::STR, buffer, line, pos));
+				ts.push_back(Token(Token::STR, buffer, line, pos-buffer.size()-2));
 				buffer.clear();
 				break;
 
-			case '(':
-			case ')':
-			case '[':
-			case ']':
-			case '\'':
+			case L'(':
+			case L')':
+			case L'[':
+			case L']':
+			case L'\'':
 				Uimmm
-				ts.push_back(Token(static_cast<Token::Type>(src[index]), L"",line,pos));
+				ts.push_back(Token(static_cast<Token::Type>(src[index]), L"",line, pos - buffer.size()));
 				pos++;
 				break;
-			case '\n':
+			case L'\n':
 				Uimmm
+				pos++;
 				line++;
 				pos = 1;
 				break;
-			case '\0':
-			case '\t':
-			case ' ':
+			case L'\0':
+			case L'\t':
+			case L' ':
 			case EOF:
 				Uimmm
+				pos++;
 				break;
 			default:
 				buffer += src[index];
@@ -96,7 +98,7 @@ namespace amalt {
 			}
 		}
 		if (buffer.length() != 0) {
-			ts.push_back(Token(Fk(buffer), buffer, line, pos));
+			ts.push_back(Token(Fk(buffer), buffer, line, pos - buffer.size()));
 		}
 		return ts;
 	}
