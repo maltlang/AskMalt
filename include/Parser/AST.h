@@ -92,19 +92,19 @@ namespace amalt {
 
 	class CondAst : DefaultAst {
 	public:
-		std::vector<std::shared_ptr<TupleAst>> exprlist;
+		std::vector<AST> exprlist;
 		CondAst() = default;
-		CondAst(std::vector<std::shared_ptr<TupleAst>> &el);
+		CondAst(std::vector<AST> &el);
 		String toString();
 	};
 
 	class MatchAst : DefaultAst {
 	public:
 		AST expr;
-		std::vector<std::shared_ptr<TupleAst>> exprlist;
+		std::vector<AST> exprlist;
 
 		MatchAst(AST e);
-		MatchAst(AST e, std::vector<std::shared_ptr<TupleAst>> &el);
+		MatchAst(AST e, std::vector<AST> &el);
 		String toString();
 	};
 

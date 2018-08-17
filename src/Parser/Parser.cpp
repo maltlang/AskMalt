@@ -199,12 +199,12 @@ namespace amalt {
 						idx++;
 						break;
 					}
-					auto a = TupleParser(tf, idx);
+					auto a = Parser(tf, idx);
 					if (!std::get_if<AST>(&a)) {
 						idx = em;
 						goto condend;
 					}
-					r.get()->exprlist.push_back(std::get<std::shared_ptr<TupleAst>>(std::get<AST>(a).expr));
+					r.get()->exprlist.push_back(std::get<AST>(a));
 				}
 				return AST(AST::COND, r, first.line, first.pos);
 			}
@@ -223,12 +223,12 @@ namespace amalt {
 						idx++;
 						break;
 					}
-					auto ta = TupleParser(tf, idx);
+					auto ta = Parser(tf, idx);
 					if (!std::get_if<AST>(&ta)) {
 						idx = em;
 						goto matchend;
 					}
-					rs.get()->exprlist.push_back(std::get<std::shared_ptr<TupleAst>>(std::get<AST>(ta).expr));
+					rs.get()->exprlist.push_back(std::get<AST>(ta));
 				}
 				return AST(AST::MATCH, rs, first.line, first.pos);
 			}

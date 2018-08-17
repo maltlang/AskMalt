@@ -5,9 +5,9 @@ namespace amalt {
 	//AST::AST() : type(INT), expr(), line(0), pos(0) {}
 	LetAst::LetAst(AST n, AST e) : nexpr(std::move(n)), vexpr(std::move(e)) {}
 	//CondAst::CondAst() {}
-	CondAst::CondAst(std::vector<std::shared_ptr<TupleAst>> &el) : exprlist(std::move(el)) {}
+	CondAst::CondAst(std::vector<AST> &el) : exprlist(std::move(el)) {}
 	MatchAst::MatchAst(AST e) : expr(e) {}
-	MatchAst::MatchAst(AST e, std::vector<std::shared_ptr<TupleAst>>& el) : expr(std::move(e)), exprlist(std::move(el)) {}
+	MatchAst::MatchAst(AST e, std::vector<AST>& el) : expr(std::move(e)), exprlist(std::move(el)) {}
 	//FCallAst::FCallAst() {}
 	FCallAst::FCallAst(std::vector<AST> &el) : exprlist(std::move(el)) {}
 	DefunAst::DefunAst(RString n, std::shared_ptr<TupleAst>& an, std::vector<AST>& el) : name(std::move(n)), argsnames(std::move(an)), exprlist(std::move(el)) {}
@@ -75,7 +75,7 @@ namespace amalt {
 		String s;
 		for (auto &i : exprlist) {
 			s += L' ';
-			s += i.get()->toString();
+			s += i.toString();
 		}
 		return String(L"(cond") + s + String(L")");
 	}
@@ -84,7 +84,7 @@ namespace amalt {
 		String s;
 		for (auto &i : exprlist) {
 			s += L' ';
-			s += i.get()->toString();
+			s += i.toString();
 		}
 		return String(L"(match ") + expr.toString() + s + String(L")");
 	}

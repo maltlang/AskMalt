@@ -38,6 +38,7 @@ namespace amalt {
 	using RValue = std::variant<
 		// atom
 		bool,
+		wchar_t,
 		ui64, i64, f64,
 		// ref object
 		RString,
