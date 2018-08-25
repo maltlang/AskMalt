@@ -3,6 +3,7 @@
 #include "Parser/Lexer.h"
 #include "Parser/Parser.h"
 #include "Exception.h"
+#include "FunctionContext.h"
 
 using namespace std;
 using namespace amalt;

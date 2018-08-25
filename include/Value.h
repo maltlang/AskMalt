@@ -22,18 +22,21 @@ namespace amalt {
 	//class String;
 	//class Tuple;
 	//class Dict;
-	class Function;
+	//class Function;
 	class RTFunction;
 	class NativeFunction;
 	class UserDatas;
+	class RuntimeException;
 	//*/
 	typedef std::shared_ptr<String> RString;
 	typedef std::shared_ptr<Tuple> RTuple;
 	typedef std::shared_ptr<List> RList;
 	typedef std::shared_ptr<Dict> RDict;
 	typedef std::shared_ptr<UserDatas> RUserDatas;
+	//using RFunction = std::shared_ptr<Function>;
 	using RRTFunction = std::shared_ptr<RTFunction>;
 	using RNativeFunction = std::shared_ptr<NativeFunction>;
+	using RRuntimeException = std::shared_ptr<RuntimeException>;
 
 	using RValue = std::variant<
 		// atom
@@ -47,6 +50,7 @@ namespace amalt {
 		RDict,
 		RRTFunction,
 		RNativeFunction,
+		RRuntimeException,
 		// userdata
 		RUserDatas
 	>;
@@ -66,6 +70,8 @@ namespace amalt {
 		LISTT,
 		DICTT,
 		OBJECTT,
+
+		EXCEPTION,
 
 		USERDATA,
 
