@@ -42,9 +42,11 @@ namespace amalt {
 		case TUPLE:
 			s = std::get<std::shared_ptr<TupleAst>>(expr).get()->toString();
 			break;
+		/*
 		case QUOTE:
 			s = std::get<std::shared_ptr<QuoteAst>>(expr).get()->toString();
 			break;
+			*/
 		case LET:
 			s = std::get<std::shared_ptr<LetAst>>(expr).get()->toString();
 			break;

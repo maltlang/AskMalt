@@ -27,7 +27,7 @@ namespace amalt {
 
 			TUPLE,
 
-			QUOTE,
+			//QUOTE,
 
 			LET,
 			COND,
@@ -45,7 +45,7 @@ namespace amalt {
 			f64,
 			RString,
 			// ast struct
-			std::shared_ptr<QuoteAst>,
+			//std::shared_ptr<QuoteAst>,
 			std::shared_ptr<TupleAst>,
 			std::shared_ptr<LetAst>,
 			std::shared_ptr<CondAst>,

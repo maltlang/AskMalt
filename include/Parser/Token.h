@@ -13,7 +13,7 @@ namespace amalt {
 			RP = ')',
 			LMP = '[',
 			RMP = ']',
-			QUO = '\'',
+			//QUO = '\'',
 
 			//NUM = 'N',
 			FLOAT = 'f',

@@ -29,6 +29,7 @@ namespace amalt {
 				idx++;
 				return AST(AST::SYMBOL, AST::ae(std::make_shared<String>(e.exvalue)), e.line, e.pos);
 			}
+			/*
 			else if (e.tp == Token::QUO) {
 				idx++;
 				auto r = Parser(tf, idx);
@@ -40,6 +41,7 @@ namespace amalt {
 					return r;
 				}
 			}
+			*/
 			else {}
 
 			auto r0 = TupleParser(tf, idx);
@@ -233,6 +235,7 @@ namespace amalt {
 				return AST(AST::MATCH, rs, first.line, first.pos);
 			}
 		matchend:
+			/*
 			if (r == Token(Token::SYM, L"quote", 0, 0)) {
 				// match
 				idx++;
@@ -249,6 +252,7 @@ namespace amalt {
 				return AST(AST::QUOTE, std::make_shared<QuoteAst>(std::get<AST>(a)), first.line, first.pos);
 			}
 		quoteend:
+		*/
 			// fcall
 			{
 				auto rs = std::make_shared<FCallAst>();
