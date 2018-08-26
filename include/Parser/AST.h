@@ -34,7 +34,6 @@ namespace amalt {
 			MATCH,
 			FCALL,
 			DEFUN,
-			//LAMBDA_,
 		};
 		const Type type;
 

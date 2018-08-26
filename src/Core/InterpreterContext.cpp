@@ -8,11 +8,8 @@ namespace amalt {
 			throw RuntimeException(L"OptionError", L"Option error");
 		}
 	}
-	Value InterpreterContext::expr(AST a) {
-		return Value();
-	}
 
-	Value eval(AST expr) {
+	Value InterpreterContext::eval(AST expr) {
 		switch (expr.type)
 		{
 		case AST::NIL_:
@@ -42,6 +39,27 @@ namespace amalt {
 			//return quote_eval(std::get<std::shared_ptr<QuoteAst>>(expr.expr).get()->expr);
 		}
 		*/
+		case AST::LET: {
+			// 还不支持元组匹配，因为这玩意已经把我脑袋弄晕了，能跑就行，mmp
+			auto lt = std::get<std::shared_ptr<LetAst>>(expr.expr);
+			RString name;
+			if (lt->nexpr.type != AST::SYMBOL) {
+				name = std::get<RString>(lt->nexpr.expr);
+			}
+			else {
+				throw RuntimeException(L"EvalError", L"Let args non symbol");
+			}
+			// 对value处求值
+			auto r = eval(lt->vexpr);
+			// 如果栈大小为零，就表示处于模块顶层，直接赋值local，如果不是，就在函数上下文里边操作
+			if (framestack.size() == 0) {
+				rmod->vartable->operator[](*name) = r;
+			}
+			else {
+				framestack.top().vartable->operator[](*name) = r;
+			}
+			return r;
+		}
 		default:
 			// 我估计这个throw永远不会触发——除非改AST的人作死
 			throw;

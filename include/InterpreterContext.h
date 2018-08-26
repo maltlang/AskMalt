@@ -16,7 +16,7 @@ namespace amalt {
 		InterpreterContext() = default;
 		InterpreterContext(int argc, char **argv);
 		~InterpreterContext() = default;
-		Value expr(AST a);
+		Value eval(AST expr);
 		//void run();
 	};
 }
